@@ -3419,6 +3419,55 @@
           <div class="calendar" id="calendar"></div>
         </div>
         <div class="list-view" id="list-view" hidden></div>
+<section class="cmt" id="tareas-tecnicas" aria-labelledby="cmt-title">
+<style>
+.cmt{margin:28px 0 8px;padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);}
+.cmt-eyebrow{color:var(--cyan);font-family:CuboDIN,"Arial Narrow",Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;font-size:13px;margin:0 0 6px}
+.cmt h2{margin:0 0 6px;font-size:24px;color:var(--text)}
+.cmt-intro{margin:0 0 18px;color:var(--muted);font-size:14px;max-width:900px}
+.cmt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cmt table{width:100%;min-width:900px;border-collapse:collapse;font-size:13px;color:var(--text)}
+.cmt th{text-align:left;font-weight:600;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em;padding:10px 12px;border-bottom:1px solid var(--line)}
+.cmt td{vertical-align:top;padding:14px 12px;border-bottom:1px solid var(--line);line-height:1.5}
+.cmt td small{display:block;color:var(--quiet);margin-top:4px;font-size:12px}
+.cmt ol{margin:0;padding-left:18px} .cmt li{margin-bottom:4px}
+.cmt-n{color:var(--quiet);width:28px}
+.cmt-p{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.cmt-alta{background:var(--lime);color:#07151f} .cmt-media{border:1px solid var(--line);color:var(--muted)}
+.cmt th:nth-child(4),.cmt td:nth-child(4){width:24%} .cmt th:nth-child(5),.cmt td:nth-child(5){width:30%}
+@media (max-width:600px){.cmt{padding:16px}.cmt h2{font-size:20px}}
+@media print{.cmt{break-inside:auto}.cmt table{min-width:0}}
+</style>
+<p class="cmt-eyebrow">Fuera del calendario</p>
+<h2 id="cmt-title">Tareas técnicas inmediatas</h2>
+<p class="cmt-intro">No son publicaciones: son arreglos del sitio que sostienen el trabajo del calendario. Ordenadas por prioridad. Basadas en la extracción de octubre 2026, Search Console del 1 al 10 de noviembre, el inventario de contenido y el tracker de auditoría.</p>
+<div class="cmt-wrap"><table><thead><tr><th>#</th><th>Prioridad</th><th>Tarea</th><th>Por qué (dato)</th><th>Qué hacer</th><th>Listo cuando</th></tr></thead>
+<tbody><tr><td class="cmt-n">1</td><td><span class="cmt-p cmt-alta">Alta</span></td>
+<td><strong>Revisar el teléfono de los botones de WhatsApp en artículos</strong><small>Medición y conversión</small></td>
+<td>El inventario detectó que el CTA heredado de los artículos usa phone=5588548328 (y +5588548328 en el post 367), mientras el oficial es +52 55 8854 8328. Si el enlace no lleva 52, WhatsApp puede abrir un chat equivocado o no abrirlo: se perderían clics de las páginas con más tráfico (guía de precios, secado, manchas amarillas).</td>
+<td><ol><li>Abrir 3 artículos en móvil y pulsar el botón de WhatsApp: confirmar a qué número llega.</li><li>Si falta el 52, corregirlo en el shortcode [ceromanchas_articulo] / snippet ID 6 (con respaldo previo) y en el enlace del post 367.</li><li>Volver a probar en móvil y escritorio.</li><li>Anotar en el log antes/después.</li></ol></td>
+<td>Todos los botones de WhatsApp de artículos abren el chat de +52 55 8854 8328.<small>Hacer respaldo del snippet antes de editar (regla 19 de la ficha).</small></td></tr><tr><td class="cmt-n">2</td><td><span class="cmt-p cmt-alta">Alta</span></td>
+<td><strong>GA4 casi no registra vistas de página (CM-015 / CM-016)</strong><small>Medición y conversión</small></td>
+<td>RESULTADO oct 2026: 56 page_view contra 351 inicios de sesión; por eso el 98 % de las visitas desde buscadores no tiene página de entrada en GA4. El snippet «GA4 - Eventos» usa send_page_view:false y conviven 2 GTM (GTM-NN6DP2GL y GTM-5J3R27CS). Formulario y correo siguen en 0.</td>
+<td><ol><li>Con Tag Assistant cargar Home, Salas, Vestiduras y un artículo: anotar cuántos page_view llegan a G-3FDTQ18L81 y desde qué etiqueta.</li><li>Revisar ambos GTM: qué etiqueta GA4 dispara page_view y si alguna tiene un activador limitado.</li><li>Dejar UNA sola fuente de page_view (no borrar contenedores sin entender su uso).</li><li>Probar clic_whatsapp, clic_telefono, clic_correo y envio_formulario en DebugView.</li><li>Comparar a los 7 días: page_view debe ser igual o mayor que session_start.</li></ol></td>
+<td>Page_view ≥ inicios de sesión durante 7 días y los 4 eventos de contacto aparecen en DebugView una sola vez.<small>Requiere acceso a ambos GTM (dependencia en la ficha).</small></td></tr><tr><td class="cmt-n">3</td><td><span class="cmt-p cmt-alta">Alta</span></td>
+<td><strong>Pedir a Omar cobertura, reseñas y fotos reales (CM-007, CM-011, CM-012)</strong><small>SEO local y confianza</small></td>
+<td>Las landings de Salas, Colchones y Alfombras muestran coberturas distintas a la Home (CM-007). El perfil tiene 39 reseñas con promedio 5,0 que no se muestran en el sitio (CM-011), y las galerías usan imágenes de referencia (CM-012). Sin estos datos no se puede completar la curación de las landings.</td>
+<td><ol><li>Enviar a Omar un mensaje corto con 3 preguntas: lista final de alcaldías atendidas; permiso para mostrar reseñas de Google en el sitio; 5–10 fotos reales de trabajos con autorización.</li><li>Registrar fecha de envío en el log.</li><li>Con respuesta: actualizar cobertura en Home, Contacto, landings y schema LocalBusiness (mismo texto en todos).</li></ol></td>
+<td>Mensaje enviado y respuesta registrada (o recordatorio programado si no responde).</td></tr><tr><td class="cmt-n">4</td><td><span class="cmt-p cmt-media">Media</span></td>
+<td><strong>Sacar de Google el archivo de autor «admin1»</strong><small>SEO técnico</small></td>
+<td>/author/admin1/ y /author/admin1/page/2/ recibieron clics en oct y siguen con impresiones en nov, aunque las 24 entradas ya se pasaron a cm-editorial. El inventario (H03, H20, H24) propone noindex.</td>
+<td><ol><li>Confirmar que admin1 ya no tiene entradas publicadas.</li><li>En Yoast: noindex para el archivo de ese autor (o desactivar archivos de autor solo para admin1, sin tocar cm-editorial).</li><li>Verificar que /author/admin1/ salga del author-sitemap.</li><li>Pedir eliminación/actualización en Search Console y anotar en el log.</li></ol></td>
+<td>/author/admin1/ responde con noindex y no aparece en el sitemap.</td></tr><tr><td class="cmt-n">5</td><td><span class="cmt-p cmt-media">Media</span></td>
+<td><strong>Doble H1 y bloques repetidos en Sillas (ID 200)</strong><small>SEO técnico</small></td>
+<td>El inventario marca Sillas como P1 por dos H1 idénticos y bloques de contenido repetidos en el HTML; su corrección está NO CONFIRMADA. La landing pasó de 10 a 5 clics (sep→oct) y su posición empeoró de 6,7 a 13,1.</td>
+<td><ol><li>Ver el código fuente y contar los H1; revisar si los bloques duplicados son versiones móvil/escritorio ocultas.</li><li>Dejar un solo H1 y una sola versión de cada bloque (respaldo antes de editar en Elementor).</li><li>Revisar title/meta: «Lavado de sillas de comedor y oficina a domicilio en CDMX | Cero Manchas».</li><li>Probar en móvil y escritorio. Reindexar.</li></ol></td>
+<td>El HTML tiene un solo H1 y ningún bloque repetido.</td></tr><tr><td class="cmt-n">6</td><td><span class="cmt-p cmt-media">Media</span></td>
+<td><strong>Diagnosticar el CLS de Vestiduras (0,224)</strong><small>SEO técnico</small></td>
+<td>La ficha registra CLS de laboratorio 0,224 en Vestiduras, con causa NO CONFIRMADA (no atribuirla automáticamente a .cmv-actions). Es la landing con más tráfico y clics a WhatsApp desde buscadores; un salto de diseño en móvil puede costar clics en el botón. CM-025 sigue en Verificar.</td>
+<td><ol><li>PageSpeed Insights móvil de /lavado-de-vestiduras/ (3 pruebas) y guardar capturas.</li><li>Panel Performance de Chrome con «Layout Shift regions» para ver qué elemento se mueve.</li><li>Solo con la causa identificada: reservar alto/ancho al elemento o cargar fuentes/imágenes de forma estable.</li><li>Volver a medir y anotar antes/después en el tracker.</li></ol></td>
+<td>Causa documentada con evidencia y CLS de laboratorio ≤0,1, o informe de por qué no se puede sin cambiar el header global.<small>No cambiar el header global sin autorización (dependencia en la ficha).</small></td></tr></tbody></table></div>
+</section>
         <footer class="workspace-footer">
           <span><i data-icon="check"></i><span id="footer-context"></span></span
           ><span
@@ -3821,7 +3870,7 @@
     <script type="application/json" id="dashboard-data">
 {
   "schemaVersion": 1,
-  "planId": "cero-manchas-2026-11-v1",
+  "planId": "cero-manchas-2026-11-v2",
   "demo": false,
   "client": {
     "id": "cero-manchas",
@@ -3834,38 +3883,8 @@
   },
   "year": 2026,
   "month": 11,
-  "objective": "Noviembre (solo jueves 12, 19 y 26): 6 posts GBP, 6 curaciones y 6 tareas técnicas para convertir impresiones en clics en Salas, Colchones, Vestiduras y la guía de precios.",
+  "objective": "Noviembre (jueves 12, 19 y 26): 1 post GBP y 2 curaciones por semana para convertir impresiones en clics en Salas, Colchones, Vestiduras y la guía de precios.",
   "publications": [
-    {
-      "id": "cm-2026-11-12-1gbp-01",
-      "date": "2026-11-12",
-      "theme": "¿De qué depende el precio de lavar una sala?",
-      "category": "Post GBP",
-      "service": "Lavado de salas, sofás y sillones",
-      "targetAudience": "Hogares de CDMX que comparan precios antes de contratar",
-      "localIntent": "Ciudad de México · servicio a domicilio",
-      "customerJourney": "Consideración",
-      "objective": "Llevar tráfico local a la guía de precios y resolver la duda de costo sin publicar tarifas.",
-      "strategicRationale": "La guía de precios es la página con más impresiones (3.373 en oct; 1.155 del 1 al 10 nov) pero su CTR bajó a 0,8 %. Consultas como «cuánto cobran por lavar una sala de 3 piezas» (80 imp.) y «lavado de salas precios» (121 imp.) muestran que la gente busca precio. El post refuerza esa intención y acompaña la curación de la misma guía.",
-      "primaryKeyword": "cuánto cuesta lavar una sala",
-      "secondaryKeywords": [
-        "cuánto cobran por lavar una sala de 3 piezas",
-        "lavado de salas precios",
-        "lavado de muebles a domicilio"
-      ],
-      "hook": "¿Cuánto cuesta lavar tu sala? Depende de 4 cosas",
-      "caption": "¿Te preguntas cuánto cuesta lavar tu sala? 🛋️\n\nEl precio no es igual para todas: depende del número de piezas o plazas, del tipo de tela, de las manchas u olores que tenga y de tu ubicación en la CDMX.\n\nPor eso en Cero Manchas cotizamos con fotos: así revisamos el estado real de tu sala y te damos una cotización clara antes de agendar.\n\nEn nuestra guía te explicamos cada factor para que sepas qué esperar.",
-      "cta": "Más información",
-      "url": "https://ceromanchas.com.mx/cuanto-cuesta-un-servicio-de-lavado-de-muebles-profesional-en-la-cdmx/",
-      "hashtags": "#CeroManchas #LavadoDeSalas #CDMX",
-      "imageDirection": "Sala de 3 piezas de tela en una sala luminosa, con 4 íconos sencillos que representen los factores (piezas, tela, manchas, ubicación).",
-      "imageText": "¿Cuánto cuesta lavar tu sala?",
-      "imagePrompt": "Pieza para publicación de Google Business Profile de Cero Manchas (limpieza de tapicería a domicilio en Ciudad de México). Formato cuadrado 1200 × 1200 px (decisión editorial), orientación 1:1, márgenes seguros de 80 px. Escena: sala de tres piezas de tela gris claro en una sala de estar luminosa de departamento en CDMX; a un lado, cuatro íconos lineales simples y discretos (un sofá, una muestra de tela, una gota/mancha, un pin de ubicación) alineados en vertical, sin texto adicional junto a los íconos. Estilo: fotografía realista, luz natural cálida de interior, tonos limpios y sobrios, sensación de orden y cuidado; composición sencilla con un solo foco visual. Texto en la imagen: «¿Cuánto cuesta lavar tu sala?», en tipografía sans serif gruesa, máximo 2 líneas, alto contraste, en el tercio superior. Logo: espacio reservado en la esquina inferior derecha (aprox. 160 px de ancho) para colocar después el logo original. Identidad del cliente Cero Manchas: usar únicamente el logo original de Cero Manchas tomado de la biblioteca de medios de ceromanchas.com.mx o entregado por Omar; no recrearlo, redibujarlo ni inventar una versión. Paleta y tipografía oficiales: NO CONFIRMADAS; tomar los colores del logo y del sitio actual como referencia hasta recibir el manual. Restricciones: no incluir números de teléfono, precios, porcentajes, garantías, sellos, certificaciones ni la palabra «24/7». No presentar la imagen como foto de un trabajo real de Cero Manchas ni hacer un «antes/después» simulado: es una imagen ilustrativa. Personas sin rostro identificable o de espaldas. Sin marcas de agua. Revisión final: ortografía del texto, logo nítido y legible en móvil.",
-      "altText": "Sala de tres piezas de tela gris en un departamento luminoso, con íconos de piezas, tela, manchas y ubicación.",
-      "evidence": "Search Console vía Windsor (propiedad https://ceromanchas.com.mx/), extraído 12/11/2026; guía de precios ID 338 actualizada 15/10/2026 (ficha del cliente). Factores tomados de la ficha y de la guía; sin importes.",
-      "status": "Planeado",
-      "notes": ""
-    },
     {
       "id": "cm-2026-11-12-1gbp-02",
       "date": "2026-11-12",
@@ -3960,94 +3979,6 @@
       "notes": ""
     },
     {
-      "id": "cm-2026-11-12-3tec-01",
-      "date": "2026-11-12",
-      "theme": "Técnico: revisar el teléfono de los botones de WhatsApp en artículos",
-      "category": "Tarea técnica",
-      "service": "Medición y conversión",
-      "targetAudience": "Uso interno · Cubo SEO",
-      "localIntent": "Ciudad de México",
-      "customerJourney": "Decisión",
-      "objective": "Que ningún botón de WhatsApp de los artículos falle por un número sin código de país.",
-      "strategicRationale": "El inventario detectó que el CTA heredado de los artículos usa phone=5588548328 (y +5588548328 en el post 367), mientras el oficial es +52 55 8854 8328. Si el enlace no lleva 52, WhatsApp puede abrir un chat equivocado o no abrirlo: se perderían clics de las páginas con más tráfico (guía de precios, secado, manchas amarillas).",
-      "primaryKeyword": "cta whatsapp",
-      "secondaryKeywords": [
-        "5215588548328",
-        "api.whatsapp.com"
-      ],
-      "hook": "Un número mal escrito puede tirar los contactos",
-      "caption": "Qué hacer:\n1. Abrir 3 artículos en móvil y pulsar el botón de WhatsApp: confirmar a qué número llega.\n2. Si falta el 52, corregirlo en el shortcode [ceromanchas_articulo] / snippet ID 6 (con respaldo previo) y en el enlace del post 367.\n3. Volver a probar en móvil y escritorio.\n4. Anotar en el log antes/después.",
-      "cta": "Listo cuando: todos los botones de WhatsApp de artículos abren el chat de +52 55 8854 8328.",
-      "url": "https://ceromanchas.com.mx/cuanto-cuesta-un-servicio-de-lavado-de-muebles-profesional-en-la-cdmx/",
-      "hashtags": "",
-      "imageDirection": "No aplica: tarea de optimización, no requiere pieza gráfica nueva.",
-      "imageText": "",
-      "imagePrompt": "No aplica: esta ficha es una tarea de corrección técnica en el sitio, no una publicación con imagen. Si se cambia la imagen destacada, conservar el estilo actual del artículo.",
-      "altText": "No aplica.",
-      "evidence": "Inventario contenido (Sheet SEO PLAN), nota «CTA»; ficha del cliente sección 1.",
-      "status": "Planeado",
-      "notes": "Hacer respaldo del snippet antes de editar (regla 19 de la ficha)."
-    },
-    {
-      "id": "cm-2026-11-12-3tec-02",
-      "date": "2026-11-12",
-      "theme": "Técnico: GA4 casi no registra vistas de página (CM-015 / CM-016)",
-      "category": "Tarea técnica",
-      "service": "Medición y conversión",
-      "targetAudience": "Uso interno · Cubo SEO",
-      "localIntent": "Ciudad de México",
-      "customerJourney": "Decisión",
-      "objective": "Recuperar la medición de vistas de página y eventos de contacto para poder saber qué página genera contactos.",
-      "strategicRationale": "RESULTADO oct 2026: 56 page_view contra 351 inicios de sesión; por eso el 98 % de las visitas desde buscadores no tiene página de entrada en GA4. El snippet «GA4 - Eventos» usa send_page_view:false y conviven 2 GTM (GTM-NN6DP2GL y GTM-5J3R27CS). Formulario y correo siguen en 0.",
-      "primaryKeyword": "ga4 page_view",
-      "secondaryKeywords": [
-        "GTM-NN6DP2GL",
-        "GTM-5J3R27CS",
-        "G-3FDTQ18L81"
-      ],
-      "hook": "Sin vistas de página no sabemos qué página vende",
-      "caption": "Qué hacer:\n1. Con Tag Assistant cargar Home, Salas, Vestiduras y un artículo: anotar cuántos page_view llegan a G-3FDTQ18L81 y desde qué etiqueta.\n2. Revisar ambos GTM: qué etiqueta GA4 dispara page_view y si alguna tiene un activador limitado.\n3. Dejar UNA sola fuente de page_view (no borrar contenedores sin entender su uso).\n4. Probar clic_whatsapp, clic_telefono, clic_correo y envio_formulario en DebugView.\n5. Comparar a los 7 días: page_view debe ser igual o mayor que session_start.",
-      "cta": "Listo cuando: page_view ≥ inicios de sesión durante 7 días y los 4 eventos de contacto aparecen en DebugView una sola vez.",
-      "url": "https://ceromanchas.com.mx/",
-      "hashtags": "",
-      "imageDirection": "No aplica: tarea de optimización, no requiere pieza gráfica nueva.",
-      "imageText": "",
-      "imagePrompt": "No aplica: esta ficha es una tarea de corrección técnica en el sitio, no una publicación con imagen. Si se cambia la imagen destacada, conservar el estilo actual del artículo.",
-      "altText": "No aplica.",
-      "evidence": "Extracción GA4 oct 2026 (propiedad 495933141); ficha secciones 4, 5 y 12; tracker Auditoría IA CM-015/016.",
-      "status": "Planeado",
-      "notes": "Requiere acceso a ambos GTM (dependencia en la ficha)."
-    },
-    {
-      "id": "cm-2026-11-19-1gbp-01",
-      "date": "2026-11-19",
-      "theme": "¿Cuánto tarda en secar una sala después del lavado?",
-      "category": "Post GBP",
-      "service": "Lavado de salas, sofás y sillones",
-      "targetAudience": "Personas que dudan en lavar su sala por el tiempo de secado",
-      "localIntent": "Ciudad de México · servicio a domicilio",
-      "customerJourney": "Consideración",
-      "objective": "Resolver una objeción frecuente y llevar visitas al artículo de secado recién curado.",
-      "strategicRationale": "El artículo de secado es el 2.º con más impresiones del sitio (1.808 en oct; 627 del 1 al 10 nov, posición 4,4) y «como secar un sillon mojado» tiene 76 impresiones sin clics. Es una duda real antes de contratar.",
-      "primaryKeyword": "cuánto tarda en secar un sillón",
-      "secondaryKeywords": [
-        "cómo secar un sillón mojado",
-        "cuánto tarda en secarse un colchón"
-      ],
-      "hook": "¿Cuánto tarda en secar tu sala?",
-      "caption": "¿Te preocupa cuánto tiempo tardará tu sala en secar después del lavado? 💨\n\nNo hay un tiempo único: depende del tipo de tela, del relleno, de la ventilación del lugar y de la humedad del día.\n\nLo que sí ayuda: abrir ventanas, encender un ventilador y no sentarse ni cubrir el mueble hasta que esté completamente seco.\n\nEn Cero Manchas te explicamos qué esperar en tu caso antes de agendar. En nuestra guía encontrarás todos los factores.",
-      "cta": "Más información",
-      "url": "https://ceromanchas.com.mx/cuanto-tiempo-tarda-en-secar-un-sillon-o-colchon-despues-del-lavado/",
-      "hashtags": "#CeroManchas #LavadoDeSalas #CDMX",
-      "imageDirection": "Sofá de tela recién lavado junto a una ventana abierta y un ventilador, transmitiendo ventilación.",
-      "imageText": "¿Cuánto tarda en secar tu sala?",
-      "imagePrompt": "Pieza para publicación de Google Business Profile de Cero Manchas (limpieza de tapicería a domicilio en Ciudad de México). Formato cuadrado 1200 × 1200 px (decisión editorial), orientación 1:1, márgenes seguros de 80 px. Escena: sofá de tela azul grisáceo en una sala con una ventana abierta con cortinas movidas por el aire y un ventilador de pie encendido orientado hacia el sofá; ambiente fresco y luminoso, nadie sentado. Estilo: fotografía realista, luz natural cálida de interior, tonos limpios y sobrios, sensación de orden y cuidado; composición sencilla con un solo foco visual. Texto en la imagen: «¿Cuánto tarda en secar tu sala?», en tipografía sans serif gruesa, máximo 2 líneas, alto contraste, en el tercio superior. Logo: espacio reservado en la esquina inferior derecha (aprox. 160 px de ancho) para colocar después el logo original. Identidad del cliente Cero Manchas: usar únicamente el logo original de Cero Manchas tomado de la biblioteca de medios de ceromanchas.com.mx o entregado por Omar; no recrearlo, redibujarlo ni inventar una versión. Paleta y tipografía oficiales: NO CONFIRMADAS; tomar los colores del logo y del sitio actual como referencia hasta recibir el manual. Restricciones: no incluir números de teléfono, precios, porcentajes, garantías, sellos, certificaciones ni la palabra «24/7». No presentar la imagen como foto de un trabajo real de Cero Manchas ni hacer un «antes/después» simulado: es una imagen ilustrativa. Personas sin rostro identificable o de espaldas. Sin marcas de agua. Revisión final: ortografía del texto, logo nítido y legible en móvil.",
-      "altText": "Sofá de tela junto a una ventana abierta y un ventilador encendido para ayudar al secado.",
-      "evidence": "Search Console vía Windsor (propiedad https://ceromanchas.com.mx/), extraído 12/11/2026; regla 12 de la ficha (no prometer secado en tiempo fijo).",
-      "status": "Planeado",
-      "notes": ""
-    },
-    {
       "id": "cm-2026-11-19-1gbp-02",
       "date": "2026-11-19",
       "theme": "¿Por qué el colchón se pone amarillo?",
@@ -4137,64 +4068,6 @@
       "notes": ""
     },
     {
-      "id": "cm-2026-11-19-3tec-01",
-      "date": "2026-11-19",
-      "theme": "Técnico: sacar de Google el archivo de autor «admin1»",
-      "category": "Tarea técnica",
-      "service": "SEO técnico",
-      "targetAudience": "Uso interno · Cubo SEO",
-      "localIntent": "Ciudad de México",
-      "customerJourney": "Decisión",
-      "objective": "Que Google deje de mostrar /author/admin1/ y concentre las señales en el autor editorial cm-editorial.",
-      "strategicRationale": "/author/admin1/ y /author/admin1/page/2/ recibieron clics en oct y siguen con impresiones en nov, aunque las 24 entradas ya se pasaron a cm-editorial. El inventario (H03, H20, H24) propone noindex.",
-      "primaryKeyword": "author admin1",
-      "secondaryKeywords": [
-        "noindex",
-        "cm-editorial"
-      ],
-      "hook": "Un archivo viejo sigue apareciendo en Google",
-      "caption": "Qué hacer:\n1. Confirmar que admin1 ya no tiene entradas publicadas.\n2. En Yoast: noindex para el archivo de ese autor (o desactivar archivos de autor solo para admin1, sin tocar cm-editorial).\n3. Verificar que /author/admin1/ salga del author-sitemap.\n4. Pedir eliminación/actualización en Search Console y anotar en el log.",
-      "cta": "Listo cuando: /author/admin1/ responde con noindex y no aparece en el sitemap.",
-      "url": "https://ceromanchas.com.mx/author/admin1/",
-      "hashtags": "",
-      "imageDirection": "No aplica: tarea de optimización, no requiere pieza gráfica nueva.",
-      "imageText": "",
-      "imagePrompt": "No aplica: esta ficha es una tarea de corrección técnica en el sitio, no una publicación con imagen. Si se cambia la imagen destacada, conservar el estilo actual del artículo.",
-      "altText": "No aplica.",
-      "evidence": "Search Console vía Windsor (propiedad https://ceromanchas.com.mx/), extraído 12/11/2026; Inventario contenido H03, H20, H24; CM-018.",
-      "status": "Planeado",
-      "notes": ""
-    },
-    {
-      "id": "cm-2026-11-19-3tec-02",
-      "date": "2026-11-19",
-      "theme": "Técnico: doble H1 y bloques repetidos en Sillas (ID 200)",
-      "category": "Tarea técnica",
-      "service": "SEO técnico",
-      "targetAudience": "Uso interno · Cubo SEO",
-      "localIntent": "Ciudad de México",
-      "customerJourney": "Decisión",
-      "objective": "Dejar una sola jerarquía clara en la landing de Sillas antes de promocionarla en GBP el 26/11.",
-      "strategicRationale": "El inventario marca Sillas como P1 por dos H1 idénticos y bloques de contenido repetidos en el HTML; su corrección está NO CONFIRMADA. La landing pasó de 10 a 5 clics (sep→oct) y su posición empeoró de 6,7 a 13,1.",
-      "primaryKeyword": "lavado de sillas",
-      "secondaryKeywords": [
-        "lavado de sillas de comedor",
-        "lavado de sillas de comedor precio"
-      ],
-      "hook": "Dos títulos principales confunden a Google",
-      "caption": "Qué hacer:\n1. Ver el código fuente y contar los H1; revisar si los bloques duplicados son versiones móvil/escritorio ocultas.\n2. Dejar un solo H1 y una sola versión de cada bloque (respaldo antes de editar en Elementor).\n3. Revisar title/meta: «Lavado de sillas de comedor y oficina a domicilio en CDMX | Cero Manchas».\n4. Probar en móvil y escritorio. Reindexar.",
-      "cta": "Listo cuando: el HTML tiene un solo H1 y ningún bloque repetido.",
-      "url": "https://ceromanchas.com.mx/lavado-de-sillas/",
-      "hashtags": "",
-      "imageDirection": "No aplica: tarea de optimización, no requiere pieza gráfica nueva.",
-      "imageText": "",
-      "imagePrompt": "No aplica: esta ficha es una tarea de corrección técnica en el sitio, no una publicación con imagen. Si se cambia la imagen destacada, conservar el estilo actual del artículo.",
-      "altText": "No aplica.",
-      "evidence": "Search Console vía Windsor (propiedad https://ceromanchas.com.mx/), extraído 12/11/2026 (sep vs oct 2026); Inventario contenido ID 200; ficha sección 10.",
-      "status": "Planeado",
-      "notes": ""
-    },
-    {
       "id": "cm-2026-11-26-1gbp-01",
       "date": "2026-11-26",
       "theme": "Lavado de vestiduras a domicilio: qué incluye",
@@ -4221,35 +4094,6 @@
       "imagePrompt": "Pieza para publicación de Google Business Profile de Cero Manchas (limpieza de tapicería a domicilio en Ciudad de México). Formato cuadrado 1200 × 1200 px (decisión editorial), orientación 1:1, márgenes seguros de 80 px. Escena: vista desde la puerta trasera abierta hacia el interior de un auto sedán con asientos de tela gris oscuro, tapetes y panel de puerta tapizado visibles; cochera residencial de CDMX con luz natural; sin logotipos de marcas de autos visibles. Estilo: fotografía realista, luz natural cálida de interior, tonos limpios y sobrios, sensación de orden y cuidado; composición sencilla con un solo foco visual. Texto en la imagen: «¿Qué incluye el lavado de vestiduras?», en tipografía sans serif gruesa, máximo 2 líneas, alto contraste, en el tercio superior. Logo: espacio reservado en la esquina inferior derecha (aprox. 160 px de ancho) para colocar después el logo original. Identidad del cliente Cero Manchas: usar únicamente el logo original de Cero Manchas tomado de la biblioteca de medios de ceromanchas.com.mx o entregado por Omar; no recrearlo, redibujarlo ni inventar una versión. Paleta y tipografía oficiales: NO CONFIRMADAS; tomar los colores del logo y del sitio actual como referencia hasta recibir el manual. Restricciones: no incluir números de teléfono, precios, porcentajes, garantías, sellos, certificaciones ni la palabra «24/7». No presentar la imagen como foto de un trabajo real de Cero Manchas ni hacer un «antes/después» simulado: es una imagen ilustrativa. Personas sin rostro identificable o de espaldas. Sin marcas de agua. Revisión final: ortografía del texto, logo nítido y legible en móvil.",
       "altText": "Interior de un auto con asientos de tela gris, tapetes y panel de puerta tapizado.",
       "evidence": "Search Console vía Windsor (propiedad https://ceromanchas.com.mx/), extraído 12/11/2026 (sep, oct y 1–10 nov 2026); artículo «lavado-vestiduras-auto-que-incluye» (ID 614): techo no confirmado, por eso no se menciona.",
-      "status": "Planeado",
-      "notes": ""
-    },
-    {
-      "id": "cm-2026-11-26-1gbp-02",
-      "date": "2026-11-26",
-      "theme": "Sillas del comedor listas para las reuniones de diciembre",
-      "category": "Post GBP",
-      "service": "Lavado de sillas y sillería",
-      "targetAudience": "Hogares y restaurantes de CDMX que preparan reuniones de fin de año",
-      "localIntent": "Ciudad de México · servicio a domicilio",
-      "customerJourney": "Consideración",
-      "objective": "Activar demanda de temporada para Sillas y diversificar los servicios del perfil.",
-      "strategicRationale": "Diciembre trae reuniones en casa y negocios: las sillas del comedor son lo primero que se ensucia. «lavado de sillas de comedor precio» tiene 70 impresiones en 90 días (posición 6,6) y no hay posts de Sillas en el historial de GBP. Se publica después de corregir la landing (tarea del 19/11).",
-      "primaryKeyword": "lavado de sillas de comedor",
-      "secondaryKeywords": [
-        "lavado de sillas de comedor precio",
-        "lavado de sillas a domicilio cdmx"
-      ],
-      "hook": "¿Tus sillas del comedor están listas para diciembre?",
-      "caption": "Se acercan las reuniones de fin de año 🎄 y las sillas del comedor son de lo primero que se ensucia: comida, bebidas y uso diario.\n\nEn Cero Manchas lavamos sillas de comedor a domicilio en la CDMX, para casas y también para restaurantes y oficinas. Revisamos el tipo de tapiz antes de cotizar.\n\nAgenda con tiempo: mándanos fotos de tus sillas, cuántas son y tu colonia.",
-      "cta": "Reservar / Cotizar",
-      "url": "https://ceromanchas.com.mx/lavado-de-sillas/",
-      "hashtags": "#CeroManchas #LavadoDeSillas #CDMX",
-      "imageDirection": "Comedor de 6 sillas tapizadas, mesa puesta con detalles discretos de fiestas.",
-      "imageText": "Sillas listas para diciembre",
-      "imagePrompt": "Pieza para publicación de Google Business Profile de Cero Manchas (limpieza de tapicería a domicilio en Ciudad de México). Formato cuadrado 1200 × 1200 px (decisión editorial), orientación 1:1, márgenes seguros de 80 px. Escena: comedor con seis sillas tapizadas en tela clara alrededor de una mesa de madera, con detalles navideños discretos (un centro de mesa de ramas y velas apagadas); sin personas; luz cálida de tarde; encuadre en diagonal mostrando el tapiz de las sillas. Estilo: fotografía realista, luz natural cálida de interior, tonos limpios y sobrios, sensación de orden y cuidado; composición sencilla con un solo foco visual. Texto en la imagen: «Sillas listas para diciembre», en tipografía sans serif gruesa, máximo 2 líneas, alto contraste, en el tercio superior. Logo: espacio reservado en la esquina inferior derecha (aprox. 160 px de ancho) para colocar después el logo original. Identidad del cliente Cero Manchas: usar únicamente el logo original de Cero Manchas tomado de la biblioteca de medios de ceromanchas.com.mx o entregado por Omar; no recrearlo, redibujarlo ni inventar una versión. Paleta y tipografía oficiales: NO CONFIRMADAS; tomar los colores del logo y del sitio actual como referencia hasta recibir el manual. Restricciones: no incluir números de teléfono, precios, porcentajes, garantías, sellos, certificaciones ni la palabra «24/7». No presentar la imagen como foto de un trabajo real de Cero Manchas ni hacer un «antes/después» simulado: es una imagen ilustrativa. Personas sin rostro identificable o de espaldas. Sin marcas de agua. Revisión final: ortografía del texto, logo nítido y legible en móvil.",
-      "altText": "Comedor con seis sillas tapizadas de tela clara y una mesa con un centro de mesa navideño.",
-      "evidence": "Search Console vía Windsor (propiedad https://ceromanchas.com.mx/), extraído 12/11/2026 (13/08–10/11/2026); historial GBP jul–oct 2026 sin posts de Sillas.",
       "status": "Planeado",
       "notes": ""
     },
@@ -4311,65 +4155,6 @@
       "imagePrompt": "No aplica: esta ficha es una tarea de curación de contenido en el sitio, no una publicación con imagen. Si se cambia la imagen destacada, conservar el estilo actual del artículo.",
       "altText": "No aplica.",
       "evidence": "Search Console vía Windsor (propiedad https://ceromanchas.com.mx/), extraído 12/11/2026; Inventario contenido ID 428 (P1); regla 11 de la ficha.",
-      "status": "Planeado",
-      "notes": ""
-    },
-    {
-      "id": "cm-2026-11-26-3tec-01",
-      "date": "2026-11-26",
-      "theme": "Técnico: diagnosticar el CLS de Vestiduras (0,224)",
-      "category": "Tarea técnica",
-      "service": "SEO técnico",
-      "targetAudience": "Uso interno · Cubo SEO",
-      "localIntent": "Ciudad de México",
-      "customerJourney": "Decisión",
-      "objective": "Que la página que más contactos genera cargue estable en móvil (meta CLS ≤0,1 — PROPUESTA de la ficha).",
-      "strategicRationale": "La ficha registra CLS de laboratorio 0,224 en Vestiduras, con causa NO CONFIRMADA (no atribuirla automáticamente a .cmv-actions). Es la landing con más tráfico y clics a WhatsApp desde buscadores; un salto de diseño en móvil puede costar clics en el botón. CM-025 sigue en Verificar.",
-      "primaryKeyword": "core web vitals vestiduras",
-      "secondaryKeywords": [
-        "CLS",
-        "LCP móvil",
-        "CM-025"
-      ],
-      "hook": "La página estrella se mueve al cargar",
-      "caption": "Qué hacer:\n1. PageSpeed Insights móvil de /lavado-de-vestiduras/ (3 pruebas) y guardar capturas.\n2. Panel Performance de Chrome con «Layout Shift regions» para ver qué elemento se mueve.\n3. Solo con la causa identificada: reservar alto/ancho al elemento o cargar fuentes/imágenes de forma estable.\n4. Volver a medir y anotar antes/después en el tracker.",
-      "cta": "Listo cuando: causa documentada con evidencia y CLS de laboratorio ≤0,1, o informe de por qué no se puede sin cambiar el header global.",
-      "url": "https://ceromanchas.com.mx/lavado-de-vestiduras/",
-      "hashtags": "",
-      "imageDirection": "No aplica: tarea de optimización, no requiere pieza gráfica nueva.",
-      "imageText": "",
-      "imagePrompt": "No aplica: esta ficha es una tarea de corrección técnica en el sitio, no una publicación con imagen. Si se cambia la imagen destacada, conservar el estilo actual del artículo.",
-      "altText": "No aplica.",
-      "evidence": "Ficha del cliente sección 10 (hallazgos técnicos); tracker Auditoría IA CM-025; GSC/GA4 oct 2026.",
-      "status": "Planeado",
-      "notes": "No cambiar el header global sin autorización (dependencia en la ficha)."
-    },
-    {
-      "id": "cm-2026-11-26-3tec-02",
-      "date": "2026-11-26",
-      "theme": "Técnico: pedir a Omar cobertura, reseñas y fotos reales (CM-007, CM-011, CM-012)",
-      "category": "Tarea técnica",
-      "service": "SEO local y confianza",
-      "targetAudience": "Uso interno · Cubo SEO",
-      "localIntent": "Ciudad de México",
-      "customerJourney": "Decisión",
-      "objective": "Desbloquear 3 pendientes que solo puede resolver el cliente y que frenan Salas, Colchones y Alfombras.",
-      "strategicRationale": "Las landings de Salas, Colchones y Alfombras muestran coberturas distintas a la Home (CM-007). El perfil tiene 39 reseñas con promedio 5,0 que no se muestran en el sitio (CM-011), y las galerías usan imágenes de referencia (CM-012). Sin estos datos no se puede completar la curación de las landings.",
-      "primaryKeyword": "cobertura cdmx",
-      "secondaryKeywords": [
-        "reseñas google",
-        "fotos reales de trabajos"
-      ],
-      "hook": "Tres datos que solo tiene el cliente",
-      "caption": "Qué hacer:\n1. Enviar a Omar un mensaje corto con 3 preguntas: lista final de alcaldías atendidas; permiso para mostrar reseñas de Google en el sitio; 5–10 fotos reales de trabajos con autorización.\n2. Registrar fecha de envío en el log.\n3. Con respuesta: actualizar cobertura en Home, Contacto, landings y schema LocalBusiness (mismo texto en todos).",
-      "cta": "Listo cuando: mensaje enviado y respuesta registrada (o recordatorio programado si no responde).",
-      "url": "https://ceromanchas.com.mx/",
-      "hashtags": "",
-      "imageDirection": "No aplica: tarea de optimización, no requiere pieza gráfica nueva.",
-      "imageText": "",
-      "imagePrompt": "No aplica: esta ficha es una tarea de corrección técnica en el sitio, no una publicación con imagen. Si se cambia la imagen destacada, conservar el estilo actual del artículo.",
-      "altText": "No aplica.",
-      "evidence": "Tracker Auditoría IA (29/10/2026) CM-007, CM-011, CM-012; GBP: 39 reseñas, promedio 5,0 (Windsor, 05/11/2026).",
       "status": "Planeado",
       "notes": ""
     }
